@@ -9,4 +9,8 @@ class Video extends Model
 {
     use HasFactory;
     public $fillable = array("title", "description", "miniature", "category_id", "author_id");
+
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
 }

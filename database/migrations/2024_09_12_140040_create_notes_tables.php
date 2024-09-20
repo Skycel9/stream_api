@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notes_tables', function (Blueprint $table) {
+        Schema::create('notes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("user_id"); //Foreign key
             $table->unsignedBigInteger("video_id"); //Foreign key
-            $table->decimal("value", 8, 1);
+            $table->float("value");
             $table->timestamps();
 
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notes_tables');
+        Schema::dropIfExists('notes');
     }
 };

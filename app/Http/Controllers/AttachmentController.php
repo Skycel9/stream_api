@@ -10,16 +10,7 @@ use App\Models\Video;
 class AttachmentController extends Controller
 {
     public function show($id) {
-        $attachment = Attachment::findOrFail($id);
+        $attachment = Attachment::FindOrFail($id);
         return new AttachmentResource($attachment);
-    }
-
-    public function join($id) {
-        $video = Video::FindOrFail($id);
-
-        $miniature = $video->miniature;
-        $miniature = Attachment::FindOrFail($miniature);
-
-        return new AttachmentResource($miniature);
     }
 }

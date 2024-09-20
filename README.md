@@ -1,66 +1,142 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# <center>Stream API - Laravel</center>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Ce projet est une API qui a pour objectif de diffusé des données concernants différents type de vidéo. Ce projet scolaire a également comme objet la prise en main de laravel en autonomie et créer un petit projet afin de comprendre son fonctionnement.
 
-## About Laravel
+Vous trouverez ci-dessous, la documentation de l'API ainsi que le MCD qui ont pour but de vous aider dans l'utilisation de l'API.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Documentation
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Voici la liste des endpoints et comment les utiliser
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```http
+GET /api/videos
+```
 
-## Learning Laravel
+Liste l'ensemble des vidéos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```http
+GET /api/videos/{id}
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Liste les données de la vidéo indiqué par l'ID
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```http
+POST /api/videos/{id}/like
+```
 
-## Laravel Sponsors
+Ajoute/supprime la vidéo en tant que like **lorsqu'un utilisateur est connecté**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```http
+POST /api/videos/{id}/note
+```
 
-### Premium Partners
+Affiche la note donné par l'utilisateur sur la vidéo indiqué par l'ID **lorsqu'un utilisateur est connecté**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```http
+PUT /api/videos/{id}/note?note={value}
+```
 
-## Contributing
+Ajoute la note choisi par l'utilisateur à la vidéo indiqué par l'ID **lorsqu'un utilisateur est connecté**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```http
+DELETE /api/videos/{id}/note
+```
 
-## Code of Conduct
+Supprime la note donnée par l'utilisateur à la vidéo indiqué par l'ID **lorsqu'un utilisateur est connecté**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```http
+GET /api/categories
+```
 
-## Security Vulnerabilities
+Liste l'ensemble des catégories existante
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```http
+GET /api/categories/{id}
+```
 
-## License
+Affiche l'ensemble des données sur la catégorie indiqué par l'ID
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```http
+GET /api/categories/{slug}
+```
+
+Affiche l'ensemble des données sur la categorie indiqué par le slug
+
+```http
+GET /api/categories/{id}/videos
+```
+
+Liste les vidéos assigné à la catégorie indiqué par l'ID
+
+```http
+GET /api/attachments/{id}
+```
+
+Affiche l'ensemble des données sur l'image indiqué par l'ID
+
+```http
+POST /api/register?name={name}&displayName={displayName}&email={email}&password={password}&profile_picture={profile_picture}
+```
+
+Permet d'inscrire un utilisateur, profile_picture peut-être 0 par défaut
+
+```http
+POST /api/login?name={name}&password={password}
+```
+
+Permet de se connecter à un compte utilisateur, retour le token utile pour les requête nécessitant la connexion d'un utilisateur
+
+```http
+POST /api/logout
+```
+
+Permet de déconnecter un utilisateur
+
+```http
+POST /api/me
+```
+
+Affiche les données de l'utilisateur actuellement connecté, **lorsqu"un utilisateur est connecté**
+
+```http
+POST /api/me/likes
+```
+
+Affiche les données des vidéos liké par l'utilisateur actuellement connecté, **lorsqu'un utilisateur est connecté**
+
+```http
+POST /api/me/notes
+```
+
+Affiche les données des notes données par l'utilisateur actuellement connecté, **lorsqu'un utilisateur est connecté**
+
+```http
+POST /api/videos/{id}/notes
+```
+
+Affiche les données de la vidéo ainsi que la note donnée par l'utilisateur actuellement connecté, **lorsqu'un utilisateur est connecté**
+
+```http
+PUT /api/me/videos/{id}/notes
+```
+
+Permet d'ajouter une note à la vidéo indiqué par l'ID, **lorsqu'un utilisateur est connecté**
+
+```http
+DELETE /api/me/videos/{id}/notes
+```
+
+Permet de supprimé la note de la vidéo indiqué par l'ID, **lorsqu'un utilisateur est connecté**
+
+```http
+GET /api/notes/above/{value}/videos
+```
+
+Affiche toutes les entrées de note supérieur à {value}
+
+```http
+GET /api/notes/below/{value}/videos
+```
+
+Affiche toutes les entrées de note inférieur à {value}
+
